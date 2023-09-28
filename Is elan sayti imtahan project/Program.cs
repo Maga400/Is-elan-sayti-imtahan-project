@@ -131,9 +131,9 @@ void createObjects()
 
     //-----------------------------------------Login------------------------------------------------------------------
 
-    WorkerLogin wl1 = new WorkerLogin("maga40","4040");
-    WorkerLogin wl2 = new WorkerLogin("qwerty","qweqwe");
-    WorkerLogin wl3 = new WorkerLogin("mehemmed123","maga1245");
+    WorkerLogin wl1 = new WorkerLogin("maga40", "4040");
+    WorkerLogin wl2 = new WorkerLogin("qwerty", "qweqwe");
+    WorkerLogin wl3 = new WorkerLogin("mehemmed123", "maga1245");
     workerLogins.AddRange(new[] { wl1, wl2, wl3 });
     var workerLoginJson = JsonConvert.SerializeObject(workerLogins);
     File.WriteAllText("workersLogin.json", workerLoginJson);
@@ -152,24 +152,24 @@ void createObjects()
 
 
 
-var testResultFromFileForEmployee = File.ReadAllText("employees.json");
-var newEmployeeList = JsonConvert.DeserializeObject<List<Employee>>(testResultFromFileForEmployee);
-
-var testResultFromFileForWorker = File.ReadAllText("workers.json");
-var newWorkerList = JsonConvert.DeserializeObject<List<Worker>>(testResultFromFileForWorker);
-
 
 while (true)
 {
     try
     {
-        var asd = File.ReadAllText("test.json");
-        if (asd == "")
+        if (!File.Exists("test.json"))
         {
             createObjects();
             var pp = JsonConvert.SerializeObject("1");
             File.WriteAllText("test.json", pp);
         }
+
+        var testResultFromFileForEmployee = File.ReadAllText("employees.json");
+        var newEmployeeList = JsonConvert.DeserializeObject<List<Employee>>(testResultFromFileForEmployee);
+
+        var testResultFromFileForWorker = File.ReadAllText("workers.json");
+        var newWorkerList = JsonConvert.DeserializeObject<List<Worker>>(testResultFromFileForWorker);
+
         var testResultFromFileForWorkerNotification = File.ReadAllText("workersNotification.json");
         var newWorkerNotification = JsonConvert.DeserializeObject<List<Notification>>(testResultFromFileForWorkerNotification);
 
@@ -214,9 +214,6 @@ while (true)
                         }
                         else if (choiceWorker == "2")
                         {
-                            //var testResultFromFileForEmployee = File.ReadAllText("employees.json");
-                            //var newEmployeeList = JsonConvert.DeserializeObject<List<Employee>>(testResultFromFileForEmployee);
-
                             for (int i = 0; i < newEmployeeList.Count; i++)
                             {
                                 Console.WriteLine($"{newEmployeeList[i].Name} isci axtaranin vakansiyasi\n{newEmployeeList[i].Vacancies}");
@@ -479,6 +476,10 @@ while (true)
                             {
                                 int startYear = int.Parse(Console.ReadLine());
                                 StartYear = startYear;
+                                if(startYear>DateTime.Now.Year || startYear < 1950) 
+                                {
+                                    throw new DateTimeException();
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -493,6 +494,10 @@ while (true)
                             {
                                 int startMonth = int.Parse(Console.ReadLine());
                                 StartMonth = startMonth;
+                                if (startMonth > 12 || startMonth < 0) 
+                                {
+                                    throw new DateTimeException();
+                                }
                             }
 
                             catch (Exception ex)
@@ -508,6 +513,10 @@ while (true)
                             {
                                 int startDay = int.Parse(Console.ReadLine());
                                 StartDay = startDay;
+                                if(startDay>30 || startDay < 0) 
+                                {
+                                    throw new DateTimeException();
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -523,6 +532,11 @@ while (true)
                             {
                                 int endYear = int.Parse(Console.ReadLine());
                                 EndYear = endYear;
+                                if (endYear > DateTime.Now.Year || endYear < 1950)
+                                {
+                                    throw new DateTimeException();
+                                }
+
                             }
                             catch (Exception ex)
                             {
@@ -538,6 +552,10 @@ while (true)
                             {
                                 int endMonth = int.Parse(Console.ReadLine());
                                 EndMonth = endMonth;
+                                if (endMonth > 12 || endMonth < 0)
+                                {
+                                    throw new DateTimeException();
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -553,6 +571,10 @@ while (true)
                             {
                                 int endDay = int.Parse(Console.ReadLine());
                                 EndDay = endDay;
+                                if (endDay > 30 || endDay < 0)
+                                {
+                                    throw new DateTimeException();
+                                }
                             }
                             catch (Exception ex)
                             {
@@ -648,7 +670,7 @@ while (true)
                         }
                     }
                 }
-                if (checkLogin == 0) 
+                if (checkLogin == 0)
                 {
                     throw new FalseException();
                 }
@@ -988,15 +1010,15 @@ while (true)
                         }
                     }
                 }
-                if (checkLogin == 0) 
+                if (checkLogin == 0)
                 {
                     throw new FalseException();
                 }
 
-             
-            } 
 
-            else if (loginChoice == "3") 
+            }
+
+            else if (loginChoice == "3")
             {
                 Console.WriteLine("User name daxil edin:");
                 string userName = Console.ReadLine();
@@ -1026,70 +1048,65 @@ while (true)
                 var b = JsonConvert.SerializeObject(employeeLogins);
                 File.WriteAllText("employeesLogin.json", b);
             }
+            else 
+            {
+                throw new WarningException();
+            }
         }
     }
 
     catch (FalseException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
 
-        Console.WriteLine(ex.Message);
+
+        addExceptionForLogJson(ex);
     }
 
     catch (NameException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
 
     catch (SurnameException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
 
     catch (SheherException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
 
     catch (AgeException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
 
     catch (PhoneException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
 
     catch (AcceptanceScoreException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
 
     catch (WarningException ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
 
-    catch (Exception ex) 
+    catch (Exception ex)
     {
-        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-        File.AppendAllText("log.json", logJson);
-        Console.WriteLine(ex.Message);
+        addExceptionForLogJson(ex);
     }
+}
+
+void addExceptionForLogJson(Exception ex) 
+{
+    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+    File.AppendAllText("log.json", logJson);
+
+    Console.WriteLine(ex.Message);
 }
