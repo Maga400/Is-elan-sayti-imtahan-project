@@ -149,524 +149,585 @@ void createObjects()
 }
 
 
+if (!File.Exists("test.json"))
+{
+    createObjects();
+    var pp = JsonConvert.SerializeObject("1");
+    File.WriteAllText("test.json", pp);
+}
 
+var testResultFromFileForEmployee = File.ReadAllText("employees.json");
+var newEmployeeList = JsonConvert.DeserializeObject<List<Employee>>(testResultFromFileForEmployee);
 
+var testResultFromFileForWorker = File.ReadAllText("workers.json");
+var newWorkerList = JsonConvert.DeserializeObject<List<Worker>>(testResultFromFileForWorker);
 
+var testResultFromFileForWorkerNotification = File.ReadAllText("workersNotification.json");
+var newWorkerNotification = JsonConvert.DeserializeObject<List<Notification>>(testResultFromFileForWorkerNotification);
+
+var testResultFromFileForEmployeeNotification = File.ReadAllText("employeesNotification.json");
+var newEmployeeNotification = JsonConvert.DeserializeObject<List<Notification>>(testResultFromFileForEmployeeNotification);
+
+var workersLoginJson = File.ReadAllText("workersLogin.json");
+List<WorkerLogin> newWrokersLogin = JsonConvert.DeserializeObject<List<WorkerLogin>>(workersLoginJson);
+
+var employeesLoginJson = File.ReadAllText("employeesLogin.json");
+var newEmployeesLogin = JsonConvert.DeserializeObject<List<EmployeeLogin>>(employeesLoginJson);
 
 while (true)
 {
     try
     {
-        if (!File.Exists("test.json"))
-        {
-            createObjects();
-            var pp = JsonConvert.SerializeObject("1");
-            File.WriteAllText("test.json", pp);
-        }
-
-        var testResultFromFileForEmployee = File.ReadAllText("employees.json");
-        var newEmployeeList = JsonConvert.DeserializeObject<List<Employee>>(testResultFromFileForEmployee);
-
-        var testResultFromFileForWorker = File.ReadAllText("workers.json");
-        var newWorkerList = JsonConvert.DeserializeObject<List<Worker>>(testResultFromFileForWorker);
-
-        var testResultFromFileForWorkerNotification = File.ReadAllText("workersNotification.json");
-        var newWorkerNotification = JsonConvert.DeserializeObject<List<Notification>>(testResultFromFileForWorkerNotification);
-
-        var testResultFromFileForEmployeeNotification = File.ReadAllText("employeesNotification.json");
-        var newEmployeeNotification = JsonConvert.DeserializeObject<List<Notification>>(testResultFromFileForEmployeeNotification);
-
-        var workersLoginJson = File.ReadAllText("workersLogin.json");
-        var newWrokersLogin = JsonConvert.DeserializeObject<List<WorkerLogin>>(workersLoginJson);
-
-        var employeesLoginJson = File.ReadAllText("employeesLogin.json");
-        var newEmployeesLogin = JsonConvert.DeserializeObject<List<EmployeeLogin>>(employeesLoginJson);
-
         while (true)
         {
 
+            Thread.Sleep(1000);
             Console.WriteLine("1.Worker Login\n2.Employee Login\n3.Create new worker login\n4.Create new employee login");
-            string? loginChoice = Console.ReadLine();
+            Thread.Sleep(1000);
+            string loginChoice = Console.ReadLine();
+
+            Thread.Sleep(1000);
+            Console.Clear();
 
             if (loginChoice == "1")
             {
+                Thread.Sleep(1000);
                 int checkLogin = 0;
                 Console.WriteLine("User name daxil edin: ");
+                Thread.Sleep(1000);
                 string userName = Console.ReadLine();
 
+                Thread.Sleep(1000);
                 Console.WriteLine("Passwordu daxil edin: ");
+                Thread.Sleep(1000);
                 string password = Console.ReadLine();
+
+                Thread.Sleep(1000);
+                Console.Clear();
 
                 for (int m = 0; m < newWrokersLogin.Count; m++)
                 {
+
                     if (userName == newWrokersLogin[m].UserName && password == newWrokersLogin[m].Password)
                     {
+
                         checkLogin++;
-                        Console.WriteLine("1.Show all worker\n2.Show all vakansiya\n3.Choice vakansiya\n4.Show notification\n5.Save\n6.Create worker");
-                        string choiceWorker = Console.ReadLine();
-
-                        if (choiceWorker == "1")
+                        int recursion = 0;
+                        while (recursion == 0)
                         {
-                            for (int i = 0; i < newWorkerList.Count; i++)
-                            {
-                                Console.WriteLine(newWorkerList[i]);
-                            }
-                        }
-                        else if (choiceWorker == "2")
-                        {
-                            for (int i = 0; i < newEmployeeList.Count; i++)
-                            {
-                                Console.WriteLine($"{newEmployeeList[i].Name} isci axtaranin vakansiyasi\n{newEmployeeList[i].Vacancies}");
-                            }
-                        }
-                        else if (choiceWorker == "3")
-                        {
-                            int ID = 0;
-                        IncorrectExperience:
-                            Console.WriteLine("Vakansiyanin id-sin daxil edin");
-                            try
-                            {
-                                int id = int.Parse(Console.ReadLine());
-                                ID = id;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto IncorrectExperience;
-                            }
+                            Thread.Sleep(1000);
+                            Console.WriteLine("1.Show all worker\n2.Show all vakansiya\n3.Choice vakansiya\n4.Show notification\n5.Save\n6.Create worker\n7.Exit");
+                            Thread.Sleep(1000);
+                            string choiceWorker = Console.ReadLine();
 
-                            int check = 0;
-                            int check2 = 0;
-
-                            for (int i = 0; i < newEmployeeList.Count; i++)
+                            if (choiceWorker == "1")
                             {
-                                if (newEmployeeList[i].Vacancies.Id == ID)
+                                Thread.Sleep(1000);
+                                for (int i = 0; i < newWorkerList.Count; i++)
                                 {
-                                    check++;
-                                    Console.WriteLine("Hansi isci bu vakansiyani isdeyirse adin daxil edin:");
-                                    string vakansiyaName = Console.ReadLine();
 
-                                    for (int j = 0; j < newWorkerList.Count; j++)
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine(newWorkerList[i]);
+                                    Thread.Sleep(1000);
+
+                                }
+                                Console.WriteLine("Press enter to return choice");
+                                Console.ReadKey();
+                                Console.Clear();
+
+                            }
+                            else if (choiceWorker == "2")
+                            {
+                                Thread.Sleep(1000);
+                                for (int i = 0; i < newEmployeeList.Count; i++)
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine($"{newEmployeeList[i].Name} isci axtaranin vakansiyasi\n{newEmployeeList[i].Vacancies}");
+                                    Thread.Sleep(1000);
+                                }
+                                Console.WriteLine("Press enter to return choice");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+                            else if (choiceWorker == "3")
+                            {
+                                Thread.Sleep(1000);
+                                int ID = 0;
+                            IncorrectExperience:
+                                Console.WriteLine("Vakansiyanin id-sin daxil edin");
+                                try
+                                {
+                                    int id = int.Parse(Console.ReadLine());
+                                    ID = id;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto IncorrectExperience;
+                                }
+
+
+                                int check = 0;
+                                int check2 = 0;
+
+                                for (int i = 0; i < newEmployeeList.Count; i++)
+                                {
+                                    if (newEmployeeList[i].Vacancies.Id == ID)
                                     {
-                                        if (newWorkerList[j].Name == vakansiyaName)
+                                        check++;
+                                        Console.WriteLine("Hansi isci bu vakansiyani isdeyirse adin daxil edin:");
+                                        string vakansiyaName = Console.ReadLine();
+
+                                        for (int j = 0; j < newWorkerList.Count; j++)
                                         {
-                                            check2++;
-                                            int Salary = 0;
-                                        IncorrectExperience2:
-                                            Console.WriteLine("Ne qeder maas isdeyirsinizse onu daxil edin:");
-
-                                            try
+                                            if (newWorkerList[j].Name == vakansiyaName)
                                             {
-                                                int salary = int.Parse(Console.ReadLine());
-                                                Salary = salary;
+                                                check2++;
+                                                int Salary = 0;
+                                            IncorrectExperience2:
+                                                Console.WriteLine("Ne qeder maas isdeyirsinizse onu daxil edin:");
+
+                                                try
+                                                {
+                                                    int salary = int.Parse(Console.ReadLine());
+                                                    Salary = salary;
+                                                }
+
+                                                catch (Exception ex)
+                                                {
+                                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                                    File.AppendAllText("log.json", logJson);
+                                                    goto IncorrectExperience2;
+                                                }
+
+                                                Console.WriteLine("Gonderilecek messageni daxil edin:");
+                                                string message = Console.ReadLine();
+
+                                                newEmployeeNotification.Add(new Notification(vakansiyaName, $" terefinden gonderilen mesaj {message}\nMaas isteyi:", Salary));
+                                                employeeNatification.Add(new Notification(vakansiyaName, $" terefinden gonderilen mesaj {message}\nMaas isteyi:", Salary));
+
+                                                Thread.Sleep(1000);
+                                                Console.Clear();
+
                                             }
-
-                                            catch (Exception ex)
-                                            {
-                                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                                File.AppendAllText("log.json", logJson);
-                                                goto IncorrectExperience2;
-                                            }
-
-                                            Console.WriteLine("Gonderilecek messageni daxil edin:");
-                                            string message = Console.ReadLine();
-
-                                            newEmployeeNotification.Add(new Notification(vakansiyaName, $" terefinden gonderilen mesaj {message}\nMaas isteyi:", Salary));
-                                            employeeNatification.Add(new Notification(vakansiyaName, $" terefinden gonderilen mesaj {message}\nMaas isteyi:", Salary));
-
                                         }
                                     }
                                 }
-                            }
 
-                            if (check == 0)
-                            {
-                                Console.WriteLine("Bu ide sahib vakansiya yoxdur!!!");
-                            }
+                                if (check == 0)
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("Bu ide sahib vakansiya yoxdur!!!");
+                                    Console.Clear();
+                                }
 
-                            else if (check2 == 0)
-                            {
-                                Console.WriteLine("Bu adda isci yoxdur!!!");
-                            }
-                        }
-
-                        else if (choiceWorker == "4")
-                        {
-                            for (int j = 0; j < newWorkerNotification.Count; j++)
-                            {
-                                Console.WriteLine("-----------Notification------------");
-                                Console.WriteLine(newWorkerNotification[j] + "\n");
-                            }
-                        }
-
-                        else if (choiceWorker == "5")
-                        {
-
-                            var serializationResultForWorkerNotification = JsonConvert.SerializeObject(newWorkerNotification);
-                            File.WriteAllText("workersNotification.json", serializationResultForWorkerNotification);
-
-                            var aaa = JsonConvert.SerializeObject(newWorkerList);
-                            File.WriteAllText("workers.json", aaa);
-                        }
-
-                        else if (choiceWorker == "6")
-                        {
-                        I1:
-                            Console.WriteLine("Workerin adin daxil edin:");
-                            string Name = "";
-                            try
-                            {
-                                string name = Console.ReadLine();
-                                if (name.Length < 3)
+                                else if (check2 == 0)
                                 {
-                                    throw new NameException();
-                                }
-                                else
-                                {
-                                    Name = name;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto I1;
-                            }
-                        I2:
-                            Console.WriteLine("Workerin soyadin daxil edin:");
-                            string Surname = "";
-                            try
-                            {
-                                string surname = Console.ReadLine();
-                                if (surname.Length < 5)
-                                {
-                                    throw new SurnameException();
-                                }
-                                else
-                                {
-                                    Surname = surname;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto I2;
-                            }
-                        I3:
-                            Console.WriteLine("Workerin sheherin daxil edin:");
-                            string Sheher = "";
-                            try
-                            {
-                                string sheher = Console.ReadLine();
-                                if (sheher.Length < 3)
-                                {
-                                    throw new SheherException();
-                                }
-                                else
-                                {
-                                    Sheher = sheher;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto I3;
-                            }
-                        I4:
-                            Console.WriteLine("Workerin nomresin daxil edin:");
-                            string Phone = "";
-
-                            try
-                            {
-                                string phone = Console.ReadLine();
-                                if (phone.Length != 10)
-                                {
-                                    throw new PhoneException();
-                                }
-                                else
-                                {
-                                    Phone = phone;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto I4;
-                            }
-
-                        Incorrect:
-                            Console.WriteLine("Workerin yasin daxil edin");
-                            int Age = 0;
-                            try
-                            {
-                                int age = int.Parse(Console.ReadLine());
-                                if (age < 18)
-                                {
-                                    throw new AgeException();
-                                }
-                                else
-                                {
-                                    Age = age;
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("Bu adda isci yoxdur!!!");
+                                    Console.Clear();
                                 }
                             }
 
-                            catch (Exception ex)
+                            else if (choiceWorker == "4")
                             {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect;
-                            }
-                        Inc11:
-                            Console.WriteLine("Workerin dovlet isinde isleyirse true eks halda false daxil edin");
-                            bool GovermentWork = true;
-                            try
-                            {
-                                bool govermentWork = bool.Parse(Console.ReadLine());
-                                GovermentWork = govermentWork;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc11;
-                            }
-
-                            Console.WriteLine("Workerin ixtisasin daxil edin");
-                            string trade = Console.ReadLine();
-
-                            Console.WriteLine("Workerin mektebin daxil edin");
-                            string school = Console.ReadLine();
-
-                        Incorrect2:
-                            Console.WriteLine("Workerin balin daxil edin");
-                            double Bal = 0.0;
-                            try
-                            {
-                                double bal = double.Parse(Console.ReadLine());
-                                if (bal > 700.0)
+                                Thread.Sleep(1000);
+                                for (int j = 0; j < newWorkerNotification.Count; j++)
                                 {
-                                    throw new AcceptanceScoreException();
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("-----------Notification------------");
+                                    Console.WriteLine(newWorkerNotification[j] + "\n");
+                                    Thread.Sleep(1000);
                                 }
-                                else
+                                Console.WriteLine("Press enter to return choice");
+                                Console.ReadKey();
+                                Console.Clear();
+                            }
+
+                            else if (choiceWorker == "5")
+                            {
+                                Thread.Sleep(1000);
+                                var serializationResultForWorkerNotification = JsonConvert.SerializeObject(newWorkerNotification);
+                                File.WriteAllText("workersNotification.json", serializationResultForWorkerNotification);
+
+                                var aaa = JsonConvert.SerializeObject(newWorkerList);
+                                File.WriteAllText("workers.json", aaa);
+                                Thread.Sleep(1000);
+                                Console.Clear();
+                            }
+
+                            else if (choiceWorker == "6")
+                            {
+                                Thread.Sleep(1000);
+
+                            I1:
+                                Console.WriteLine("Workerin adin daxil edin:");
+                                string Name = "";
+                                try
                                 {
-                                    Bal = bal;
+                                    string name = Console.ReadLine();
+                                    if (name.Length < 3)
+                                    {
+                                        throw new NameException();
+                                    }
+                                    else
+                                    {
+                                        Name = name;
+                                    }
                                 }
-                            }
-
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect2;
-                            }
-
-                            Console.WriteLine("Workerin bacariqlarin daxil edin");
-                            string skils = Console.ReadLine();
-
-                            Console.WriteLine("Workerin islediyi sirketleri daxil edin");
-                            string company = Console.ReadLine();
-                        Incorrect3:
-                            Console.WriteLine("Workerin ise basladigi ili daxil edin");
-                            int StartYear = 0;
-                            try
-                            {
-                                int startYear = int.Parse(Console.ReadLine());
-                                StartYear = startYear;
-                                if(startYear>DateTime.Now.Year || startYear < 1950) 
+                                catch (Exception ex)
                                 {
-                                    throw new DateTimeException();
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto I1;
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect3;
-                            }
-                        Incorrect4:
-                            Console.WriteLine("Workerin ise basladigi ayi daxil edin");
-                            int StartMonth = 0;
-                            try
-                            {
-                                int startMonth = int.Parse(Console.ReadLine());
-                                StartMonth = startMonth;
-                                if (startMonth > 12 || startMonth < 0) 
+                            I2:
+                                Console.WriteLine("Workerin soyadin daxil edin:");
+                                string Surname = "";
+                                try
                                 {
-                                    throw new DateTimeException();
+                                    string surname = Console.ReadLine();
+                                    if (surname.Length < 5)
+                                    {
+                                        throw new SurnameException();
+                                    }
+                                    else
+                                    {
+                                        Surname = surname;
+                                    }
                                 }
-                            }
-
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect4;
-                            }
-                        Incorrect5:
-                            Console.WriteLine("Workerin ise basladigi gunu daxil edin");
-                            int StartDay = 0;
-                            try
-                            {
-                                int startDay = int.Parse(Console.ReadLine());
-                                StartDay = startDay;
-                                if(startDay>30 || startDay < 0) 
+                                catch (Exception ex)
                                 {
-                                    throw new DateTimeException();
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto I2;
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect5;
-                            }
-
-                        Incorrect6:
-                            Console.WriteLine("Workerin ise bitirdiyi ili daxil edin");
-                            int EndYear = 0;
-                            try
-                            {
-                                int endYear = int.Parse(Console.ReadLine());
-                                EndYear = endYear;
-                                if (endYear > DateTime.Now.Year || endYear < 1950)
+                            I3:
+                                Console.WriteLine("Workerin sheherin daxil edin:");
+                                string Sheher = "";
+                                try
                                 {
-                                    throw new DateTimeException();
+                                    string sheher = Console.ReadLine();
+                                    if (sheher.Length < 3)
+                                    {
+                                        throw new SheherException();
+                                    }
+                                    else
+                                    {
+                                        Sheher = sheher;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto I3;
+                                }
+                            I4:
+                                Console.WriteLine("Workerin nomresin daxil edin:");
+                                string Phone = "";
+
+                                try
+                                {
+                                    string phone = Console.ReadLine();
+                                    if (phone.Length != 10)
+                                    {
+                                        throw new PhoneException();
+                                    }
+                                    else
+                                    {
+                                        Phone = phone;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto I4;
                                 }
 
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect6;
-                            }
-
-                        Incorrect7:
-                            Console.WriteLine("Workerin ise bitirdiyi ayi daxil edin");
-                            int EndMonth = 0;
-                            try
-                            {
-                                int endMonth = int.Parse(Console.ReadLine());
-                                EndMonth = endMonth;
-                                if (endMonth > 12 || endMonth < 0)
+                            Incorrect:
+                                Console.WriteLine("Workerin yasin daxil edin");
+                                int Age = 0;
+                                try
                                 {
-                                    throw new DateTimeException();
+                                    int age = int.Parse(Console.ReadLine());
+                                    if (age < 18)
+                                    {
+                                        throw new AgeException();
+                                    }
+                                    else
+                                    {
+                                        Age = age;
+                                    }
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect7;
-                            }
 
-                        Incorrect8:
-                            Console.WriteLine("Workerin ise bitirdiyi gunu daxil edin");
-                            int EndDay = 0;
-                            try
-                            {
-                                int endDay = int.Parse(Console.ReadLine());
-                                EndDay = endDay;
-                                if (endDay > 30 || endDay < 0)
+                                catch (Exception ex)
                                 {
-                                    throw new DateTimeException();
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect;
                                 }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect8;
-                            }
-                        Incorrect9:
-                            Console.WriteLine("Worker nece dil bilir");
-                            int CountLanguage = 0;
+                            Inc11:
+                                Console.WriteLine("Workerin dovlet isinde isleyirse true eks halda false daxil edin");
+                                bool GovermentWork = true;
+                                try
+                                {
+                                    bool govermentWork = bool.Parse(Console.ReadLine());
+                                    GovermentWork = govermentWork;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc11;
+                                }
 
-                            try
-                            {
-                                int countLanguage = int.Parse(Console.ReadLine());
-                                CountLanguage = countLanguage;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Incorrect9;
+                                Console.WriteLine("Workerin ixtisasin daxil edin");
+                                string trade = Console.ReadLine();
+
+                                Console.WriteLine("Workerin mektebin daxil edin");
+                                string school = Console.ReadLine();
+
+                            Incorrect2:
+                                Console.WriteLine("Workerin balin daxil edin");
+                                double Bal = 0.0;
+                                try
+                                {
+                                    double bal = double.Parse(Console.ReadLine());
+                                    if (bal > 700.0)
+                                    {
+                                        throw new AcceptanceScoreException();
+                                    }
+                                    else
+                                    {
+                                        Bal = bal;
+                                    }
+                                }
+
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect2;
+                                }
+
+                                Console.WriteLine("Workerin bacariqlarin daxil edin");
+                                string skils = Console.ReadLine();
+
+                                Console.WriteLine("Workerin islediyi sirketleri daxil edin");
+                                string company = Console.ReadLine();
+                            Incorrect3:
+                                Console.WriteLine("Workerin ise basladigi ili daxil edin");
+                                int StartYear = 0;
+                                try
+                                {
+                                    int startYear = int.Parse(Console.ReadLine());
+                                    StartYear = startYear;
+                                    if (startYear > DateTime.Now.Year || startYear < 1950)
+                                    {
+                                        throw new DateTimeException();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect3;
+                                }
+                            Incorrect4:
+                                Console.WriteLine("Workerin ise basladigi ayi daxil edin");
+                                int StartMonth = 0;
+                                try
+                                {
+                                    int startMonth = int.Parse(Console.ReadLine());
+                                    StartMonth = startMonth;
+                                    if (startMonth > 12 || startMonth < 0)
+                                    {
+                                        throw new DateTimeException();
+                                    }
+                                }
+
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect4;
+                                }
+                            Incorrect5:
+                                Console.WriteLine("Workerin ise basladigi gunu daxil edin");
+                                int StartDay = 0;
+                                try
+                                {
+                                    int startDay = int.Parse(Console.ReadLine());
+                                    StartDay = startDay;
+                                    if (startDay > 30 || startDay < 0)
+                                    {
+                                        throw new DateTimeException();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect5;
+                                }
+
+                            Incorrect6:
+                                Console.WriteLine("Workerin ise bitirdiyi ili daxil edin");
+                                int EndYear = 0;
+                                try
+                                {
+                                    int endYear = int.Parse(Console.ReadLine());
+                                    EndYear = endYear;
+                                    if (endYear > DateTime.Now.Year || endYear < 1950)
+                                    {
+                                        throw new DateTimeException();
+                                    }
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect6;
+                                }
+
+                            Incorrect7:
+                                Console.WriteLine("Workerin ise bitirdiyi ayi daxil edin");
+                                int EndMonth = 0;
+                                try
+                                {
+                                    int endMonth = int.Parse(Console.ReadLine());
+                                    EndMonth = endMonth;
+                                    if (endMonth > 12 || endMonth < 0)
+                                    {
+                                        throw new DateTimeException();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect7;
+                                }
+
+                            Incorrect8:
+                                Console.WriteLine("Workerin ise bitirdiyi gunu daxil edin");
+                                int EndDay = 0;
+                                try
+                                {
+                                    int endDay = int.Parse(Console.ReadLine());
+                                    EndDay = endDay;
+                                    if (endDay > 30 || endDay < 0)
+                                    {
+                                        throw new DateTimeException();
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect8;
+                                }
+                            Incorrect9:
+                                Console.WriteLine("Worker nece dil bilir");
+                                int CountLanguage = 0;
+
+                                try
+                                {
+                                    int countLanguage = int.Parse(Console.ReadLine());
+                                    CountLanguage = countLanguage;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Incorrect9;
+                                }
+
+                                var languages = new List<Language>();
+                                for (int i = 0; i < CountLanguage; i++)
+                                {
+                                    Console.WriteLine("Dili daxil edin");
+                                    string? language = Console.ReadLine();
+
+                                    Console.WriteLine("Level daxil edin");
+                                    string? level = Console.ReadLine();
+
+                                    var l1 = new Language(language, level);
+                                    languages.Add(l1);
+                                }
+                            Inc10:
+                                Console.WriteLine("Workerin ferqlenme diplomu varsa true eks halda false daxil edin");
+                                bool HonorDiploma = false;
+                                try
+                                {
+                                    bool honorDiploma = bool.Parse(Console.ReadLine());
+                                    HonorDiploma = honorDiploma;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc10;
+                                }
+                            Inc1:
+                                Console.WriteLine("Workerin gitlinki  varsa true eks halda false daxil edin");
+                                bool GitLink = true;
+                                try
+                                {
+                                    bool gitlink = bool.Parse(Console.ReadLine());
+                                    GitLink = gitlink;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc1;
+                                }
+
+                            Inc2:
+                                Console.WriteLine("Workerin linkedini varsa true eks halda false daxil edin");
+                                bool Linkedin = true;
+                                try
+                                {
+                                    bool linkedin = bool.Parse(Console.ReadLine());
+                                    Linkedin = linkedin;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc2;
+                                }
+
+                                var newCvs = new List<Cv>();
+                                Cv cv = new Cv(GovermentWork, trade, school, Bal, skils, company, new DateOnly(StartYear, StartMonth, StartDay), new DateOnly(EndYear, EndMonth, EndDay), languages, HonorDiploma, GitLink, Linkedin);
+                                newCvs.Add(cv);
+
+                                Worker newWorker = new Worker(Guid.NewGuid(), Name, Surname, Sheher, Phone, Age, newCvs);
+
+                                WorkerList.Add(newWorker);
+                                newWorkerList.Add(newWorker);
+
+                                Thread.Sleep(1000);
+                                Console.Clear();
                             }
 
-                            var languages = new List<Language>();
-                            for (int i = 0; i < CountLanguage; i++)
+                            else if (choiceWorker == "7")
                             {
-                                Console.WriteLine("Dili daxil edin");
-                                string? language = Console.ReadLine();
-
-                                Console.WriteLine("Level daxil edin");
-                                string? level = Console.ReadLine();
-
-                                var l1 = new Language(language, level);
-                                languages.Add(l1);
-                            }
-                        Inc10:
-                            Console.WriteLine("Workerin ferqlenme diplomu varsa true eks halda false daxil edin");
-                            bool HonorDiploma = false;
-                            try
-                            {
-                                bool honorDiploma = bool.Parse(Console.ReadLine());
-                                HonorDiploma = honorDiploma;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc10;
-                            }
-                        Inc1:
-                            Console.WriteLine("Workerin gitlinki  varsa true eks halda false daxil edin");
-                            bool GitLink = true;
-                            try
-                            {
-                                bool gitlink = bool.Parse(Console.ReadLine());
-                                GitLink = gitlink;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc1;
+                                Thread.Sleep(1000);
+                                recursion++;
+                                Thread.Sleep(1000);
+                                Console.Clear();
                             }
 
-                        Inc2:
-                            Console.WriteLine("Workerin linkedini varsa true eks halda false daxil edin");
-                            bool Linkedin = true;
-                            try
+                            else
                             {
-                                bool linkedin = bool.Parse(Console.ReadLine());
-                                Linkedin = linkedin;
+                                throw new WarningException();
                             }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc2;
-                            }
-
-                            var newCvs = new List<Cv>();
-                            Cv cv = new Cv(GovermentWork, trade, school, Bal, skils, company, new DateOnly(StartYear, StartMonth, StartDay), new DateOnly(EndYear, EndMonth, EndDay), languages, HonorDiploma, GitLink, Linkedin);
-                            newCvs.Add(cv);
-
-                            Worker newWorker = new Worker(Guid.NewGuid(), Name, Surname, Sheher, Phone, Age, newCvs);
-
-                            WorkerList.Add(newWorker);
-                            newWorkerList.Add(newWorker);
-                        }
-
-                        else
-                        {
-                            throw new WarningException();
                         }
                     }
                 }
@@ -678,335 +739,407 @@ while (true)
 
             else if (loginChoice == "2")
             {
+                Thread.Sleep(1000);
                 Console.WriteLine("User name daxil edin: ");
+                Thread.Sleep(1000);
                 string userName = Console.ReadLine();
 
+                Thread.Sleep(1000);
                 Console.WriteLine("Passwordu daxil edin: ");
+                Thread.Sleep(1000);
                 string password = Console.ReadLine();
                 int checkLogin = 0;
 
+                Thread.Sleep(1000);
+                Console.Clear();
                 for (int e = 0; e < newEmployeesLogin.Count; e++)
                 {
                     if (userName == newEmployeesLogin[e].UserName && password == newEmployeesLogin[e].Password)
                     {
                         checkLogin++;
-                        Console.WriteLine("1.Show all employee\n2.Show all cvis\n3.Choice cvi\n4.Show notification\n5.Create Employee\n6.Save");
-                        string choiceEmployee = Console.ReadLine();
-
-                        if (choiceEmployee == "1")
+                        int recursion = 0;
+                        while (recursion == 0)
                         {
-                            for (int i = 0; i < newEmployeeList.Count; i++)
+                            Thread.Sleep(1000);
+                            Console.WriteLine("1.Show all employee\n2.Show all cvis\n3.Choice cvi\n4.Show notification\n5.Create Employee\n6.Save\n7.Exit");
+                            Thread.Sleep(1000);
+                            string choiceEmployee = Console.ReadLine();
+
+                            if (choiceEmployee == "1")
                             {
-                                Console.WriteLine(newEmployeeList[i]);
+                                Thread.Sleep(1000);
+                                for (int i = 0; i < newEmployeeList.Count; i++)
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine(newEmployeeList[i]);
+                                    Thread.Sleep(1000);
+                                }
+                                Console.WriteLine("Press enter to return choice:");
+                                Console.ReadKey();
+                                Console.Clear();
+
                             }
-                        }
 
-                        else if (choiceEmployee == "2")
-                        {
-                            Console.WriteLine("1.Dovlet isinde isleyenlerin cvisi");
-                            Console.WriteLine("2.Dovlet isinde islemeyenlerin cvisi");
-                            Console.WriteLine("3.Butun iscilerin cvisi\nSecim edin:");
-                            string choice = Console.ReadLine();
-
-                            if (choice == "1")
+                            else if (choiceEmployee == "2")
                             {
-                                Console.WriteLine("-----------------Dovlet isinde isleyenlerin cvileri--------------------");
+                                Thread.Sleep(1000);
+                                Console.WriteLine("1.Dovlet isinde isleyenlerin cvisi");
+                                Thread.Sleep(1000);
+                                Console.WriteLine("2.Dovlet isinde islemeyenlerin cvisi");
+                                Thread.Sleep(1000);
+                                Console.WriteLine("3.Butun iscilerin cvisi\nSecim edin:");
+                                Thread.Sleep(1000);
+                                string choice = Console.ReadLine();
+
+                                if (choice == "1")
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("-----------------Dovlet isinde isleyenlerin cvileri--------------------");
+                                    for (int i = 0; i < newWorkerList.Count; i++)
+                                    {
+                                        for (int j = 0; j < newWorkerList[i].Cvs.Count; j++)
+                                        {
+                                            if (newWorkerList[i].Cvs[j].GovernmentWork == true)
+                                            {
+                                                Thread.Sleep(1000);
+                                                Console.WriteLine("\t" + newWorkerList[i].Name + newWorkerList[i].Surname + "-in svisi\n");
+                                                Console.WriteLine(newWorkerList[i].Cvs[j]);
+                                                Thread.Sleep(1000);
+                                            }
+
+                                        }
+                                    }
+                                    Console.WriteLine("Press enter to return choice:");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+
+                                else if (choice == "2")
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("-----------------Dovlet isinde islemeyenlerin cvileri--------------------");
+                                    for (int i = 0; i < newWorkerList.Count; i++)
+                                    {
+                                        for (int j = 0; j < newWorkerList[i].Cvs.Count; j++)
+                                        {
+                                            if (newWorkerList[i].Cvs[j].GovernmentWork == false)
+                                            {
+                                                Thread.Sleep(1000);
+                                                Console.WriteLine("\t" + newWorkerList[i].Name + " " + newWorkerList[i].Surname + "-in cvisi\n");
+                                                Console.WriteLine(newWorkerList[i].Cvs[j]);
+                                                Thread.Sleep(1000);
+                                            }
+
+                                        }
+                                    }
+                                    Console.WriteLine("Press enter to return choice:");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+
+                                else if (choice == "3")
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("-------------------------Butun iscilerin cvileri-----------------------------");
+                                    for (int i = 0; i < newWorkerList.Count; i++)
+                                    {
+                                        Thread.Sleep(1000);
+                                        Console.WriteLine("\t" + newWorkerList[i].Name + " " + newWorkerList[i].Surname + "-in cvileri\n");
+                                        newWorkerList[i].showCvs();
+                                        Thread.Sleep(1000);
+                                    }
+                                    Console.WriteLine("Press enter to return choice:");
+                                    Console.ReadKey();
+                                    Console.Clear();
+                                }
+
+                                else
+                                {
+                                    throw new WarningException();
+                                }
+
+
+                            }
+                            else if (choiceEmployee == "3")
+                            {
+                                Thread.Sleep(1000);
+                                Console.WriteLine("Cvideki ixtisasi daxil edin");
+                                Thread.Sleep(1000);
+                                string trade = Console.ReadLine();
+                                int check = 0;
+                                int check2 = 0;
+
                                 for (int i = 0; i < newWorkerList.Count; i++)
                                 {
                                     for (int j = 0; j < newWorkerList[i].Cvs.Count; j++)
                                     {
-                                        if (newWorkerList[i].Cvs[j].GovernmentWork == true)
+                                        if (newWorkerList[i].Cvs[j].Specialty == trade)
                                         {
-                                            Console.WriteLine("\t" + newWorkerList[i].Name + newWorkerList[i].Surname + "-in svisi\n");
-                                            Console.WriteLine(newWorkerList[i].Cvs[j]);
-                                        }
+                                            check++;
+                                            Console.WriteLine("Hansi employee bu cvini isdeyirse adin daxil etsin");
+                                            string cvsName = Console.ReadLine();
+                                            for (int k = 0; k < newEmployeeList.Count; k++)
+                                            {
 
+                                                if (newEmployeeList[k].Name == cvsName)
+                                                {
+                                                    check2++;
+                                                Inc11:
+                                                    Console.WriteLine("Maasin miqdarin daxil edin:");
+                                                    int Salary = 0;
+                                                    try
+                                                    {
+                                                        int salary = int.Parse(Console.ReadLine());
+                                                        Salary = salary;
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                                        File.AppendAllText("log.json", logJson);
+                                                        goto Inc11;
+                                                    }
+                                                    Console.WriteLine("Isciye gonderilecek messageni daxil edin: ");
+                                                    string message = Console.ReadLine();
+
+                                                    Notification n1 = new Notification(cvsName, $" Employeri terefinden {newWorkerList[i].Name} {newWorkerList[i].Surname} -e gonderilen message: {message}\nMaas teklifi: ", Salary);
+
+                                                    newWorkerNotification.Add(n1);
+                                                    workerNatification.Add(n1);
+
+                                                    Thread.Sleep(1000);
+                                                    Console.Clear();
+
+                                                }
+                                            }
+                                        }
                                     }
+                                }
+
+                                if (check == 0)
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("Bu ixtisasda cvi yoxdur!!!");
+                                    Thread.Sleep(1000);
+                                    Console.Clear();
+                                }
+
+                                else if (check2 == 0)
+                                {
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("Bu adda employee yoxdur!!!");
+                                    Thread.Sleep(1000);
+                                    Console.Clear();
                                 }
                             }
 
-                            else if (choice == "2")
+                            else if (choiceEmployee == "4")
                             {
-                                Console.WriteLine("-----------------Dovlet isinde islemeyenlerin cvileri--------------------");
-                                for (int i = 0; i < newWorkerList.Count; i++)
+                                Thread.Sleep(1000);
+                                for (int j = 0; j < newEmployeeNotification.Count; j++)
                                 {
-                                    for (int j = 0; j < newWorkerList[i].Cvs.Count; j++)
+                                    Thread.Sleep(1000);
+                                    Console.WriteLine("-----------Notification------------");
+                                    Console.WriteLine(newEmployeeNotification[j] + "\n");
+                                    Thread.Sleep(1000);
+                                }
+                                Console.WriteLine("Press enter to return choice:");
+                                Console.ReadKey();
+                                Console.Clear();
+
+                            }
+
+
+
+                            else if (choiceEmployee == "5")
+                            {
+                                Thread.Sleep(1000);
+                            Inc1:
+                                Console.WriteLine("Employeenin adin daxil edin: ");
+                                string Name = "";
+                                try
+                                {
+                                    string name = Console.ReadLine();
+                                    if (name.Length < 3)
                                     {
-                                        if (newWorkerList[i].Cvs[j].GovernmentWork == false)
-                                        {
-                                            Console.WriteLine("\t" + newWorkerList[i].Name + " " + newWorkerList[i].Surname + "-in cvisi\n");
-                                            Console.WriteLine(newWorkerList[i].Cvs[j]);
-                                        }
+                                        throw new NameException();
+                                    }
+                                    else
+                                    {
 
+                                        Name = name;
                                     }
                                 }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc1;
+                                }
+                            Inc2:
+                                Console.WriteLine("Employeenin soyadin daxil edin: ");
+                                string Surname = "";
+                                try
+                                {
+                                    string surname = Console.ReadLine();
+                                    if (surname.Length < 5)
+                                    {
+                                        throw new SurnameException();
+                                    }
+                                    else
+                                    {
+                                        Surname = surname;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc2;
+                                }
+                            Inc3:
+                                Console.WriteLine("Employeenin sheherin daxil edin: ");
+                                string Sheher = "";
+                                try
+                                {
+                                    string sheher = Console.ReadLine();
+                                    if (sheher.Length < 3)
+                                    {
+                                        throw new SheherException();
+                                    }
+                                    else
+                                    {
+                                        Sheher = sheher;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc3;
+                                }
+                            Inc4:
+                                Console.WriteLine("Employeenin nomresin daxil edin: ");
+                                string Phone = "";
+                                try
+                                {
+                                    string phone = Console.ReadLine();
+                                    if (phone.Length != 10)
+                                    {
+                                        throw new PhoneException();
+                                    }
+                                    else
+                                    {
+                                        Phone = phone;
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc4;
+                                }
+
+                            Inc5:
+                                Console.WriteLine("Employeenin yasin daxil edin: ");
+                                int Age = 0;
+                                try
+                                {
+                                    int age = int.Parse(Console.ReadLine());
+
+                                    if (age < 18)
+                                    {
+                                        throw new AgeException();
+                                    }
+                                    else
+                                    {
+                                        Age = age;
+                                    }
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc5;
+                                }
+                            Inc6:
+                                Console.WriteLine("Vakansiyanin id-sin  daxil edin: ");
+                                int Id = 0;
+                                try
+                                {
+                                    int id = int.Parse(Console.ReadLine());
+                                    Id = id;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc6;
+                                }
+
+                                Console.WriteLine("Axtarilan iscinin ixtisasin daxil edin: ");
+                                string trade = Console.ReadLine();
+                            Inc7:
+                                Console.WriteLine("Axtarilan iscinin maasinin birincisi araliqin daxil edin: ");
+                                int Salary1 = 0;
+                                try
+                                {
+                                    int salary1 = int.Parse(Console.ReadLine());
+                                    Salary1 = salary1;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc7;
+                                }
+                            Inc8:
+                                Console.WriteLine("Axtarilan iscinin maasinin ikinci araliqin  daxil edin: ");
+                                int Salary2 = 0;
+                                try
+                                {
+                                    int salary2 = int.Parse(Console.ReadLine());
+                                    Salary2 = salary2;
+                                }
+                                catch (Exception ex)
+                                {
+                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
+                                    File.AppendAllText("log.json", logJson);
+                                    goto Inc8;
+                                }
+
+                                Employee newEmployee = new Employee(Guid.NewGuid(), Name, Surname, Sheher, Phone, Age, new Vakansiya(Id, trade, Salary1, Salary2));
+                                Console.WriteLine(newEmployee);
+                                EmployeeList.Add(newEmployee);
+                                newEmployeeList.Add(newEmployee);
+
+                                Thread.Sleep(1000);
+                                Console.Clear();
                             }
 
-                            else if (choice == "3")
+                            else if (choiceEmployee == "6")
                             {
-                                Console.WriteLine("-------------------------Butun iscilerin cvileri-----------------------------");
-                                for (int i = 0; i < newWorkerList.Count; i++)
-                                {
-                                    Console.WriteLine("\t" + newWorkerList[i].Name + " " + newWorkerList[i].Surname + "-in cvileri\n");
-                                    newWorkerList[i].showCvs();
-                                }
+                                Thread.Sleep(1000);
+                                Console.Clear();
+
+                                var serializationResultForEmployeeNotification = JsonConvert.SerializeObject(newEmployeeNotification);
+                                File.WriteAllText("employeesNotification.json", serializationResultForEmployeeNotification);
+
+                                var aaa = JsonConvert.SerializeObject(newEmployeeList);
+                                File.WriteAllText("employees.json", aaa);
+                            }
+
+                            else if (choiceEmployee == "7")
+                            {
+                                Thread.Sleep(1000);
+                                recursion++;
+                                Console.Clear();
                             }
 
                             else
                             {
                                 throw new WarningException();
                             }
-
-
-                        }
-                        else if (choiceEmployee == "3")
-                        {
-                            Console.WriteLine("Cvideki ixtisasi daxil edin");
-                            string trade = Console.ReadLine();
-                            int check = 0;
-                            int check2 = 0;
-
-                            for (int i = 0; i < newWorkerList.Count; i++)
-                            {
-                                for (int j = 0; j < newWorkerList[i].Cvs.Count; j++)
-                                {
-                                    if (newWorkerList[i].Cvs[j].Specialty == trade)
-                                    {
-                                        check++;
-                                        Console.WriteLine("Hansi employee bu cvini isdeyirse adin daxil etsin");
-                                        string cvsName = Console.ReadLine();
-                                        for (int k = 0; k < newEmployeeList.Count; k++)
-                                        {
-
-                                            if (newEmployeeList[k].Name == cvsName)
-                                            {
-                                                check2++;
-                                            Inc11:
-                                                Console.WriteLine("Maasin miqdarin daxil edin:");
-                                                int Salary = 0;
-                                                try
-                                                {
-                                                    int salary = int.Parse(Console.ReadLine());
-                                                    Salary = salary;
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                                    File.AppendAllText("log.json", logJson);
-                                                    goto Inc11;
-                                                }
-                                                Console.WriteLine("Isciye gonderilecek messageni daxil edin: ");
-                                                string message = Console.ReadLine();
-
-                                                Notification n1 = new Notification(cvsName, $" Employeri terefinden {newWorkerList[i].Name} {newWorkerList[i].Surname} -e gonderilen message: {message}\nMaas teklifi: ", Salary);
-
-                                                newWorkerNotification.Add(n1);
-                                                workerNatification.Add(n1);
-
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (check == 0)
-                            {
-                                Console.WriteLine("Bu ixtisasda cvi yoxdur!!!");
-                            }
-
-                            else if (check2 == 0)
-                            {
-                                Console.WriteLine("Bu adda employee yoxdur!!!");
-                            }
-                        }
-
-                        else if (choiceEmployee == "4")
-                        {
-                            for (int j = 0; j < newEmployeeNotification.Count; j++)
-                            {
-                                Console.WriteLine("-----------Notification------------");
-                                Console.WriteLine(newEmployeeNotification[j] + "\n");
-                            }
-                        }
-
-
-
-                        else if (choiceEmployee == "5")
-                        {
-                        Inc1:
-                            Console.WriteLine("Employeenin adin daxil edin: ");
-                            string Name = "";
-                            try
-                            {
-                                string name = Console.ReadLine();
-                                if (name.Length < 3)
-                                {
-                                    throw new NameException();
-                                }
-                                else
-                                {
-
-                                    Name = name;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc1;
-                            }
-                        Inc2:
-                            Console.WriteLine("Employeenin soyadin daxil edin: ");
-                            string Surname = "";
-                            try
-                            {
-                                string surname = Console.ReadLine();
-                                if (surname.Length < 5)
-                                {
-                                    throw new SurnameException();
-                                }
-                                else
-                                {
-                                    Surname = surname;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc2;
-                            }
-                        Inc3:
-                            Console.WriteLine("Employeenin sheherin daxil edin: ");
-                            string Sheher = "";
-                            try
-                            {
-                                string sheher = Console.ReadLine();
-                                if (sheher.Length < 3)
-                                {
-                                    throw new SheherException();
-                                }
-                                else
-                                {
-                                    Sheher = sheher;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc3;
-                            }
-                        Inc4:
-                            Console.WriteLine("Employeenin nomresin daxil edin: ");
-                            string Phone = "";
-                            try
-                            {
-                                string phone = Console.ReadLine();
-                                if (phone.Length != 10)
-                                {
-                                    throw new PhoneException();
-                                }
-                                else
-                                {
-                                    Phone = phone;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc4;
-                            }
-
-                        Inc5:
-                            Console.WriteLine("Employeenin yasin daxil edin: ");
-                            int Age = 0;
-                            try
-                            {
-                                int age = int.Parse(Console.ReadLine());
-
-                                if (age < 18)
-                                {
-                                    throw new AgeException();
-                                }
-                                else
-                                {
-                                    Age = age;
-                                }
-
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc5;
-                            }
-                        Inc6:
-                            Console.WriteLine("Vakansiyanin id-sin  daxil edin: ");
-                            int Id = 0;
-                            try
-                            {
-                                int id = int.Parse(Console.ReadLine());
-                                Id = id;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc6;
-                            }
-
-                            Console.WriteLine("Axtarilan iscinin ixtisasin daxil edin: ");
-                            string trade = Console.ReadLine();
-                        Inc7:
-                            Console.WriteLine("Axtarilan iscinin maasinin birincisi araliqin daxil edin: ");
-                            int Salary1 = 0;
-                            try
-                            {
-                                int salary1 = int.Parse(Console.ReadLine());
-                                Salary1 = salary1;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc7;
-                            }
-                        Inc8:
-                            Console.WriteLine("Axtarilan iscinin maasinin ikinci araliqin  daxil edin: ");
-                            int Salary2 = 0;
-                            try
-                            {
-                                int salary2 = int.Parse(Console.ReadLine());
-                                Salary2 = salary2;
-                            }
-                            catch (Exception ex)
-                            {
-                                var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
-                                File.AppendAllText("log.json", logJson);
-                                goto Inc8;
-                            }
-
-                            Employee newEmployee = new Employee(Guid.NewGuid(), Name, Surname, Sheher, Phone, Age, new Vakansiya(Id, trade, Salary1, Salary2));
-                            Console.WriteLine(newEmployee);
-                            EmployeeList.Add(newEmployee);
-                            newEmployeeList.Add(newEmployee);
-                        }
-
-                        else if (choiceEmployee == "6")
-                        {
-
-                            var serializationResultForEmployeeNotification = JsonConvert.SerializeObject(newEmployeeNotification);
-                            File.WriteAllText("employeesNotification.json", serializationResultForEmployeeNotification);
-
-                            var aaa = JsonConvert.SerializeObject(newEmployeeList);
-                            File.WriteAllText("employees.json", aaa);
-                        }
-
-                        else
-                        {
-                            throw new WarningException();
                         }
                     }
                 }
@@ -1014,16 +1147,18 @@ while (true)
                 {
                     throw new FalseException();
                 }
-
-
             }
 
             else if (loginChoice == "3")
             {
+                Thread.Sleep(1000);
                 Console.WriteLine("User name daxil edin:");
+                Thread.Sleep(1000);
                 string userName = Console.ReadLine();
 
+                Thread.Sleep(1000);
                 Console.WriteLine("Password daxil edin:");
+                Thread.Sleep(1000);
                 string password = Console.ReadLine();
 
                 WorkerLogin newLogin = new WorkerLogin(userName, password);
@@ -1031,24 +1166,34 @@ while (true)
 
                 var a = JsonConvert.SerializeObject(newWrokersLogin);
                 File.WriteAllText("workersLogin.json", a);
+
+                Thread.Sleep(1000);
+                Console.Clear();
             }
 
             else if (loginChoice == "4")
             {
+                Thread.Sleep(1000);
                 Console.WriteLine("User name daxil edin:");
+                Thread.Sleep(1000);
                 string userName2 = Console.ReadLine();
 
+                Thread.Sleep(1000);
                 Console.WriteLine("Password daxil edin:");
+                Thread.Sleep(1000);
                 string password2 = Console.ReadLine();
 
                 EmployeeLogin Login = new EmployeeLogin(userName2, password2);
                 newEmployeesLogin.Add(Login);
                 employeeLogins.Add(Login);
 
-                var b = JsonConvert.SerializeObject(employeeLogins);
+                var b = JsonConvert.SerializeObject(newEmployeesLogin);
                 File.WriteAllText("employeesLogin.json", b);
+
+                Thread.Sleep(1000);
+                Console.Clear();
             }
-            else 
+            else
             {
                 throw new WarningException();
             }
@@ -1057,53 +1202,79 @@ while (true)
 
     catch (FalseException ex)
     {
-
-
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (NameException ex)
     {
+
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (SurnameException ex)
     {
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (SheherException ex)
     {
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (AgeException ex)
     {
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (PhoneException ex)
     {
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (AcceptanceScoreException ex)
     {
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (WarningException ex)
     {
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 
     catch (Exception ex)
     {
+        Thread.Sleep(1000);
         addExceptionForLogJson(ex);
+        Thread.Sleep(1000);
+        Console.Clear();
     }
 }
 
-void addExceptionForLogJson(Exception ex) 
+void addExceptionForLogJson(Exception ex)
 {
     var logJson = JsonConvert.SerializeObject(new Log(ex.Message, DateTime.Now));
     File.AppendAllText("log.json", logJson);
