@@ -726,7 +726,10 @@ while (true)
 
                             else
                             {
-                                throw new WarningException();
+                                Thread.Sleep(1000);
+                                Console.WriteLine("Siz yanlis secim etdiniz!!!");
+                                Thread.Sleep(1000);
+                                Console.Clear();
                             }
                         }
                     }
@@ -1109,7 +1112,6 @@ while (true)
                                 }
 
                                 Employee newEmployee = new Employee(Guid.NewGuid(), Name, Surname, Sheher, Phone, Age, new Vakansiya(Id, trade, Salary1, Salary2));
-                                Console.WriteLine(newEmployee);
                                 EmployeeList.Add(newEmployee);
                                 newEmployeeList.Add(newEmployee);
 
@@ -1138,7 +1140,11 @@ while (true)
 
                             else
                             {
-                                throw new WarningException();
+                                Thread.Sleep(1000);
+                                Console.WriteLine("Siz yanlis secim etdiniz!!!");
+                                Thread.Sleep(1000);
+                                Console.Clear();
+
                             }
                         }
                     }
